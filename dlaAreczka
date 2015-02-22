@@ -1,0 +1,135 @@
+#include <iostream>
+#include <windows.h>
+
+using namespace std;
+int wybor;
+int *korzen;
+int dane[16];
+bool pusty[16];
+
+void dodaj()
+{
+    int liczba;
+    cout<<"Jaka liczbe dodac do drzewa: ";
+    cin>>liczba;
+
+    //drzewo puste
+    if (pusty[1]==true)
+    {
+        korzen=&dane[1];
+        *korzen=liczba;
+        pusty[1]=false;
+    }
+    else //drzewo niepuste
+    {
+        bool znalazlem_miejsce=false;
+        int wezel=1;
+
+        while (znalazlem_miejsce==false)
+        {
+            if (pusty[wezel]==true)
+            {
+                znalazlem_miejsce=true;
+                dane[wezel]=liczba;
+                pusty[wezel]=false;
+
+            }
+            else if(liczba<dane[wezel])
+            {
+                //w lewo
+                wezel=2*wezel;
+            }
+            else
+            {
+                //w prawo
+                wezel=2*wezel+1;
+            }
+            if(wezel>15)
+            {
+                cout<<"Potrzebne byloby wieksze drzewo!";
+                Sleep(3000);
+                znalazlem_miejsce=true;
+            }
+        }
+    }
+}
+
+void szukaj()
+{
+    int liczba;
+    cout<<"Jaka liczbe znalezc w drzewie: ";
+    cin>>liczba;
+
+    bool znalazlem=false;
+    int wezel=1;
+
+    while (znalazlem==false)
+    {
+        if(liczba==dane[wezel])
+        {
+            cout<<"Znaleziono liczbe w wezle nr: "<<wezel;
+            Sleep(3000);
+            znalazlem=true;
+        }
+        else if(liczba<dane[wezel])
+        {
+            //w lewo
+            wezel=2*wezel;
+        }
+        else
+        {
+            //w prawo
+            wezel=2*wezel+1;
+        }
+        if(wezel>15)
+        {
+            cout<<"Nie znaleziono!";
+            Sleep(3000);
+            znalazlem=true;
+        }
+    }
+}
+void pokaz()
+{
+    for (int i=0;i<16;i++)
+    {
+        if (dane[i]!=false) cout << dane[i] ;
+    }
+    Sleep(3000);
+    cout<< endl;
+
+}
+int main()
+{
+    for (int i=1; i<=15; i++)
+    {
+        pusty[i]=true;
+    }
+    korzen=NULL;
+
+    do
+    {
+
+
+        cout<<"1. DODAJ "<<endl;
+        cout<<"2. SZUKAJ "<<endl;
+        cout<<"3. POKAZ "<<endl;
+        cout<<"4. WYJDZ "<<endl;
+        cout<<"   WYBOR: ";
+        cin>>wybor;
+        cout<<endl;
+
+        switch(wybor)
+        {
+        case 1: dodaj(); break;
+        case 2: szukaj(); break;
+        case 3: pokaz(); break;
+        }
+
+    }while (wybor!=4);
+
+
+
+
+    return 0;
+}
