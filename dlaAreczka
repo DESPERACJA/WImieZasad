@@ -10,7 +10,7 @@ bool pusty[16];
 void dodaj()
 {
     int liczba;
-    cout<<"KUPA ";
+    cout<<"KUPA zsiadle mleko tu bylem :) ";
     cin>>liczba;
 
     //drzewo puste
